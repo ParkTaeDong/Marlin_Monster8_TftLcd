@@ -254,6 +254,8 @@ void draw_heater_status(uint16_t x, uint16_t y, const int8_t heater) {
 
 #endif // HAS_CUTTER
 
+#if DISABLED(PNP_STATUS_SCREEN)
+
 void MarlinUI::draw_status_screen() {
   const bool blink = get_blink();
   TERN_(TOUCH_SCREEN, touch.clear());
@@ -432,6 +434,8 @@ void MarlinUI::draw_status_screen() {
   tft_string.trim();
   tft.add_text(STATUS_MESSAGE_TEXT_X, STATUS_MESSAGE_TEXT_Y, COLOR_STATUS_MESSAGE, tft_string);
 }
+
+#endif // !PNP_STATUS_SCREEN
 
 // Low-level draw_edit_screen can be used to draw an edit screen from anyplace
 void MenuEditItemBase::draw_edit_screen(FSTR_P const ftpl, const char * const value/*=nullptr*/) {

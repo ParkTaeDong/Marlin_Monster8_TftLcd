@@ -134,6 +134,11 @@ void moveAxis(const AxisEnum axis, const int8_t direction) {
       }
     #endif
 
+    // A rotational axis without software endstops can turn freely
+    #if HAS_I_AXIS && ENABLED(AXIS4_ROTATES) && NONE(MIN_SOFTWARE_ENDSTOP_I, MAX_SOFTWARE_ENDSTOP_I)
+      if (axis == I_AXIS) min = max = 0;
+    #endif
+
     // Get the new position
     const bool limited = ui.manual_move.apply_diff(axis, diff, min, max);
     #if IS_KINEMATIC
@@ -161,6 +166,7 @@ void moveAxis(const AxisEnum axis, const int8_t direction) {
     TERN_(HAS_X_AXIS,    drawAxisValue(X_AXIS));
     TERN_(HAS_Y_AXIS,    drawAxisValue(Y_AXIS));
     TERN_(HAS_Z_AXIS,    drawAxisValue(Z_AXIS));
+    TERN_(HAS_I_AXIS,    drawAxisValue(I_AXIS));
   }
 
   void step_size() {

@@ -104,6 +104,9 @@ typedef struct {
     xy_int_t eValuePos, eNamePos;
     uint8_t e_selection = 0;
   #endif
+  #if HAS_I_AXIS
+    xy_int_t iValuePos, iNamePos;
+  #endif
   xy_int_t stepValuePos;
   float currentStepSize = 10.0;
   bool blocked = false;
@@ -129,6 +132,10 @@ void moveAxis(const AxisEnum axis, const int8_t direction);
 #if HAS_Z_AXIS
   inline void z_plus()  { moveAxis(Z_AXIS, +1); }
   inline void z_minus() { moveAxis(Z_AXIS, -1); }
+#endif
+#if HAS_I_AXIS
+  inline void i_plus()  { moveAxis(I_AXIS, +1); }
+  inline void i_minus() { moveAxis(I_AXIS, -1); }
 #endif
 void quick_feedback();
 void disable_steppers();
@@ -207,6 +214,7 @@ inline void drawMessage(FSTR_P const fmsg) { drawMessage_P(FTOP(fmsg)); }
 void drawAxisValue(const AxisEnum axis);
 void drawCurZSelection();
 void drawCurESelection();
+void drawCurIName();
 void drawCurStepValue();
 
 #define ABSOLUTE_ZERO     -273.15

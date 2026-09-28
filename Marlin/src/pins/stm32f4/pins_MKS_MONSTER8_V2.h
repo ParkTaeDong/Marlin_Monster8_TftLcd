@@ -26,7 +26,9 @@
 //
 // Limit Switches
 //
-#define X_STOP_PIN                          PA14
+#ifndef X_STOP_PIN
+  #define X_STOP_PIN                        PA14  // Shared with SWCLK
+#endif
 #define Y_STOP_PIN                          PA15
 
 //

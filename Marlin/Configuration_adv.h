@@ -962,8 +962,8 @@
 
 //#define SENSORLESS_BACKOFF_MM  { 2, 2, 0 }  // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
 
-#define HOMING_BUMP_MM      { 5, 5, 2 }       // (linear=mm, rotational=°) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define HOMING_BUMP_MM      { 5, 5, 2, 0 }       // (linear=mm, rotational=°) Backoff from endstops after first bump
+#define HOMING_BUMP_DIVISOR { 2, 2, 4, 1 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (linear=mm, rotational=°) Backoff from endstops after homing
 //#define XY_COUNTERPART_BACKOFF_MM 0         // (mm) Backoff X after homing Y, and vice-versa
@@ -1583,7 +1583,7 @@
 //#define DISABLE_REDUCED_ACCURACY_WARNING
 
 #if HAS_MANUAL_MOVE_MENU
-  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
+  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 90*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
   #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -2378,6 +2378,22 @@
   //#define TFT_BTCANCEL_COLOR 0xF800 // Red
   //#define TFT_BTARROWS_COLOR 0xDEE6 // 11011 110111 00110 Yellow
   //#define TFT_BTOKMENU_COLOR 0x145F // 00010 100010 11111 Cyan
+#endif
+
+/**
+ * Pick and Place Status Screen
+ * Replace the TFT_COLOR_UI status screen (480x320) with one showing
+ * vacuum pump / valve / light outputs, vacuum level and X Y Z A position.
+ * The outputs are driven through fan channels (M106 / M107).
+ */
+#define PNP_STATUS_SCREEN
+#if ENABLED(PNP_STATUS_SCREEN)
+  #define PNP_PUMP_FAN            0   // Fan index driving the vacuum pump
+  #define PNP_VALVE_FAN           1   // Fan index driving the vacuum valve (solenoid)
+  #define PNP_LIGHT_FAN           2   // Fan index driving the light
+  #define PNP_VACUUM_SIMULATED        // No sensor hardware. Show a value simulated from pump / valve state.
+  #define PNP_VACUUM_MIN_KPA    -100  // (kPa) Full scale of the vacuum bar
+  #define PNP_VACUUM_PICKED_KPA  -40  // (kPa) At or below this level a part is considered picked
 #endif
 
 /**
