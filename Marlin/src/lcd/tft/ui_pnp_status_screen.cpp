@@ -111,15 +111,15 @@ static void draw_tile_frame(const uint8_t index, FSTR_P const label, const uint1
   tft.add_text(tft_string.center(PNP_TILE_W), tft_string.vcenter(PNP_TILE_LABEL_H), COLOR_PNP_LABEL, tft_string);
 }
 
-static void draw_output_tile(const uint8_t index, FSTR_P const label, const uint8_t fan, void (*toggle)()) {
+static void draw_output_tile(const uint8_t index, FSTR_P const label, const MarlinImage image, const uint8_t fan, void (*toggle)()) {
   const bool on = pnp_output_is_on(fan);
   const uint16_t color = on ? COLOR_PNP_ON : COLOR_PNP_OFF;
 
   draw_tile_frame(index, label, color);
 
-  tft.add_image((PNP_TILE_W - PNP_TILE_BTN_W) / 2, PNP_TILE_BTN_Y, imgBtn52Rounded, color, COLOR_BACKGROUND, COLOR_DARKGREY);
+  tft.add_image(PNP_TILE_ICON_X, PNP_TILE_ICON_Y, image, color);
   tft_string.set(on ? F("ON") : F("OFF"));
-  tft.add_text(tft_string.center(PNP_TILE_W), PNP_TILE_BTN_Y + tft_string.vcenter(PNP_TILE_BTN_H), color, tft_string);
+  tft.add_text(tft_string.center(PNP_TILE_W), PNP_TILE_STATE_Y + tft_string.vcenter(PNP_TILE_STATE_H), color, tft_string);
 
   #if ENABLED(TOUCH_SCREEN)
     touch.add_control(BUTTON, PNP_TILE_X(index), PNP_TILE_Y, PNP_TILE_W, PNP_TILE_H, toggle);
@@ -192,10 +192,10 @@ void MarlinUI::draw_status_screen() {
   const bool blink = get_blink();
   TERN_(TOUCH_SCREEN, touch.clear());
 
-  draw_output_tile(0, F("PUMP"),  PNP_PUMP_FAN,  TERN(TOUCH_SCREEN, toggle_pump,  nullptr));
-  draw_output_tile(1, F("VALVE"), PNP_VALVE_FAN, TERN(TOUCH_SCREEN, toggle_valve, nullptr));
+  draw_output_tile(0, F("PUMP"),  imgPnpPump,  PNP_PUMP_FAN,  TERN(TOUCH_SCREEN, toggle_pump,  nullptr));
+  draw_output_tile(1, F("VALVE"), imgPnpValve, PNP_VALVE_FAN, TERN(TOUCH_SCREEN, toggle_valve, nullptr));
   draw_vacuum_tile(2);
-  draw_output_tile(3, F("LIGHT"), PNP_LIGHT_FAN, TERN(TOUCH_SCREEN, toggle_light, nullptr));
+  draw_output_tile(3, F("LIGHT"), imgPnpLight, PNP_LIGHT_FAN, TERN(TOUCH_SCREEN, toggle_light, nullptr));
 
   draw_position(blink);
 

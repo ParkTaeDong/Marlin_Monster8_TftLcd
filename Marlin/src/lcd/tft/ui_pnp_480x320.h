@@ -39,10 +39,11 @@
 #define PNP_TILE_X(N)             ((N) * PNP_TILE_PITCH + PNP_TILE_MARGIN)
 #define PNP_TILE_Y                4
 
-#define PNP_TILE_LABEL_H          34
-#define PNP_TILE_BTN_Y            44
-#define PNP_TILE_BTN_W            64  // imgBtn52Rounded
-#define PNP_TILE_BTN_H            52
+#define PNP_TILE_LABEL_H          30
+#define PNP_TILE_ICON_X           ((PNP_TILE_W - 64) / 2)
+#define PNP_TILE_ICON_Y           26
+#define PNP_TILE_STATE_Y          88
+#define PNP_TILE_STATE_H          30
 
 // Vacuum tile
 #define PNP_VACUUM_VALUE_Y        38

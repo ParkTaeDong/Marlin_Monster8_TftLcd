@@ -77,6 +77,11 @@ enum MarlinImage : uint8_t {
     imgCutter,          // Cutter_64x64x4
     imgCutterOn,        // Cutter_On_64x64x4
   #endif
+  #if ENABLED(PNP_STATUS_SCREEN)
+    imgPnpPump,         // Pnp_Pump_64x64x4
+    imgPnpValve,        // Pnp_Valve_64x64x4
+    imgPnpLight,        // Pnp_Light_64x64x4
+  #endif
   // Special values - must be at the end!
   imgCount,
   noImage = imgCount,
@@ -164,6 +169,12 @@ extern const tImage Time_Remaining_32x32x4;
 #if HAS_CUTTER
   extern const tImage Cutter_64x64x4;
   extern const tImage Cutter_On_64x64x4;
+#endif
+
+#if ENABLED(PNP_STATUS_SCREEN)
+  extern const tImage Pnp_Pump_64x64x4;
+  extern const tImage Pnp_Valve_64x64x4;
+  extern const tImage Pnp_Light_64x64x4;
 #endif
 
 extern const tImage Slider8x16x4;

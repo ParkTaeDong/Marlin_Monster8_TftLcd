@@ -69,6 +69,11 @@ const tImage images[imgCount] = {
     Cutter_64x64x4,                                        // imgCutter
     Cutter_On_64x64x4,                                     // imgCutterOn
   #endif
+  #if ENABLED(PNP_STATUS_SCREEN)
+    Pnp_Pump_64x64x4,                                      // imgPnpPump
+    Pnp_Valve_64x64x4,                                     // imgPnpValve
+    Pnp_Light_64x64x4,                                     // imgPnpLight
+  #endif
 };
 
 #endif // HAS_GRAPHICAL_TFT
